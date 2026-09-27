@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Studio Nicole Fernández — Agenda</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <h1>Studio Nicole Fernández</h1>
+  <div id="estadoArchivo" class="estado-archivo"></div>
+</header>
+
+<section id="pantallaInicio" class="pantalla-inicio">
+  <div class="tarjeta-inicio">
+    <h2>Bienvenida</h2>
+    <p id="mensajeInicio">Para empezar, creá el Excel de la agenda o abrí uno que ya tengas.</p>
+    <div class="botones-inicio">
+      <button id="btnCrear" class="boton boton-primario">Crear Excel nuevo</button>
+      <button id="btnAbrir" class="boton">Abrir Excel existente</button>
+      <button id="btnContinuar" class="boton boton-primario" style="display:none">Continuar</button>
+    </div>
+    <p id="errorInicio" class="error"></p>
+  </div>
+</section>
+
+<main id="app" style="display:none">
+
+  <nav class="tabs">
+    <button class="tab-btn activa" data-tab="agenda">Agenda</button>
+    <button class="tab-btn" data-tab="precios">Precios</button>
+    <button class="tab-btn" data-tab="recordatorios">Recordatorios</button>
+  </nav>
+
+  <section id="tab-agenda" class="tab-panel activa">
+    <h2>Reservar hora</h2>
+    <form id="formReserva" class="formulario">
+      <input type="hidden" id="reservaIndiceEdicion" value="" />
+      <div class="campo">
+        <label for="campoFecha">Fecha</label>
+        <input type="date" id="campoFecha" required />
+      </div>
+      <div class="campo">
+        <label for="campoHora">Hora</label>
+        <input type="time" id="campoHora" required />
+      </div>
+      <div class="campo">
+        <label for="campoClienta">Clienta</label>
+        <input type="text" id="campoClienta" required />
+      </div>
+      <div class="campo">
+        <label for="campoTelefono">Teléfono</label>
+        <input type="text" id="campoTelefono" />
+      </div>
+      <div class="campo">
+        <label for="campoServicio">Servicio</label>
+        <select id="campoServicio" required></select>
+      </div>
+      <div class="campo">
+        <label for="campoPrecio">Precio</label>
+        <input type="number" id="campoPrecio" required />
+      </div>
+      <div class="campo campo-ancho">
+        <label for="campoNotas">Notas</label>
+        <input type="text" id="campoNotas" />
+      </div>
+      <div class="campo campo-ancho botones-form">
+        <button type="submit" class="boton boton-primario">Guardar reserva</button>
+        <button type="button" id="btnCancelarEdicion" class="boton" style="display:none">Cancelar edición</button>
+      </div>
+    </form>
+
+    <div class="buscador">
+      <input type="text" id="buscarClienta" placeholder="Buscar por nombre de clienta..." />
+    </div>
+
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Fecha</th><th>Hora</th><th>Clienta</th><th>Teléfono</th>
+          <th>Servicio</th><th>Precio</th><th>Notas</th><th>Próx. retoque</th><th></th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTablaReservas"></tbody>
+    </table>
+  </section>
+
+  <section id="tab-precios" class="tab-panel">
+    <h2>Precios de servicios</h2>
+    <form id="formPrecio" class="formulario">
+      <input type="hidden" id="precioIndiceEdicion" value="" />
+      <div class="campo">
+        <label for="campoNombreServicio">Servicio</label>
+        <input type="text" id="campoNombreServicio" required />
+      </div>
+      <div class="campo">
+        <label for="campoValorServicio">Precio</label>
+        <input type="number" id="campoValorServicio" required />
+      </div>
+      <div class="campo botones-form">
+        <button type="submit" class="boton boton-primario">Guardar precio</button>
+        <button type="button" id="btnCancelarEdicionPrecio" class="boton" style="display:none">Cancelar edición</button>
+      </div>
+    </form>
+
+    <table class="tabla">
+      <thead><tr><th>Servicio</th><th>Precio</th><th></th></tr></thead>
+      <tbody id="cuerpoTablaPrecios"></tbody>
+    </table>
+  </section>
+
+  <section id="tab-recordatorios" class="tab-panel">
+    <div class="filtro-calendario">
+      <button class="filtro-btn activa" data-filtro="todo">Todo</button>
+      <button class="filtro-btn" data-filtro="reservas">Solo reservas</button>
+      <button class="filtro-btn" data-filtro="recordatorios">Solo recordatorios</button>
+    </div>
+
+    <div class="calendario-layout">
+      <div class="calendario-columna">
+        <div class="calendario-header">
+          <button id="btnMesAnterior" class="boton-icono" aria-label="Mes anterior">&lt;</button>
+          <span id="etiquetaMes"></span>
+          <button id="btnMesSiguiente" class="boton-icono" aria-label="Mes siguiente">&gt;</button>
+        </div>
+        <div class="grilla-nombres-dia">
+          <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+        </div>
+        <div id="grillaCalendario" class="grilla-calendario"></div>
+        <div class="leyenda">
+          <span><span class="punto punto-reserva"></span> Reserva</span>
+          <span><span class="punto punto-vencido"></span> Retoque vencido</span>
+          <span><span class="punto punto-proximo"></span> Retoque próximo</span>
+        </div>
+      </div>
+
+      <div id="panelDetalle" class="panel-detalle">
+        <p class="vacio">Seleccioná un día del calendario para ver el detalle.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="js/excel.js"></script>
+<script src="js/reminders.js"></script>
+<script src="js/calendar.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+:root {
+  --rosa: #d6336c;
+  --rosa-suave: #fce8ef;
+  --crema: #fff8f5;
+  --texto: #4a3b3b;
+  --borde: #eecfd8;
+  --verde: #2f9e44;
+  --rojo: #e03131;
+  --azul: #4c6ef5;
+  --ambar: #f59f00;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--crema);
+  color: var(--texto);
+}
+
+.topbar {
+  background: var(--rosa);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pantalla-inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  padding: 20px;
+}
+
+.tarjeta-inicio {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.botones-inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.boton {
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--borde);
+  background: white;
+  color: var(--texto);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.boton:hover { background: var(--rosa-suave); }
+
+.boton-primario {
+  background: var(--rosa);
+  border-color: var(--rosa);
+  color: white;
+}
+
+.boton-primario:hover { background: #b8235a; }
+
+.error { color: var(--rojo); margin-top: 12px; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--borde);
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--texto);
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn.activa {
+  border-bottom-color: var(--rosa);
+  color: var(--rosa);
+  font-weight: 600;
+}
+
+.tab-panel { display: none; }
+.tab-panel.activa { display: block; }
+
+.formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.campo { display: flex; flex-direction: column; gap: 4px; flex: 1 1 180px; }
+.campo-ancho { flex-basis: 100%; }
+.campo label { font-size: 0.85rem; color: #7a6767; }
+.campo input, .campo select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  font-size: 1rem;
+}
+
+.botones-form { flex-direction: row; gap: 12px; align-items: flex-end; }
+
+.buscador { margin-bottom: 12px; }
+.buscador input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--borde);
+  font-size: 1rem;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.tabla th, .tabla td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--borde);
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.tabla th { background: var(--rosa-suave); }
+
+.acciones { display: flex; gap: 8px; }
+
+.boton-icono {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--borde);
+  background: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.boton-borrar { color: var(--rojo); border-color: var(--rojo); }
+
+.vacio { color: #9a8c8c; font-style: italic; }
+
+/* ---------- Calendario ---------- */
+
+.filtro-calendario { display: flex; gap: 8px; margin-bottom: 16px; }
+
+.filtro-btn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: white;
+  color: var(--texto);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.filtro-btn.activa { background: var(--rosa); border-color: var(--rosa); color: white; }
+
+.calendario-layout {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.calendario-columna {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 16px;
+  flex: 1 1 340px;
+  max-width: 380px;
+}
+
+.calendario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.grilla-nombres-dia, .grilla-calendario {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.grilla-nombres-dia {
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  color: #9a8c8c;
+  text-align: center;
+}
+
+.dia-calendario {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.dia-calendario:hover { background: var(--rosa-suave); }
+.dia-fuera-de-mes { opacity: 0.35; }
+.dia-hoy { border: 2px solid var(--rosa); }
+.dia-seleccionado { background: var(--rosa); color: white; }
+
+.puntos { display: flex; gap: 2px; height: 6px; }
+
+.punto { width: 6px; height: 6px; border-radius: 50%; }
+.punto-reserva { background: var(--azul); }
+.punto-vencido { background: var(--rojo); }
+.punto-proximo { background: var(--ambar); }
+
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: #7a6767;
+  align-items: center;
+}
+
+.leyenda .punto { display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+.panel-detalle {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 20px;
+  flex: 1 1 320px;
+}
+
+.tarjeta-detalle {
+  border-left: 4px solid var(--rosa);
+  border-radius: 8px;
+  background: var(--crema);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.etiqueta-vencido, .etiqueta-proximo {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.etiqueta-vencido { background: var(--rojo); }
+.etiqueta-proximo { background: var(--ambar); }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--verde);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.2s;
+  pointer-events: none;
+}
+
+.toast.visible { opacity: 1; transform: translateY(0); }
+.toast.error-toast { background: var(--rojo); }
+
+.estado-archivo { font-size: 0.85rem; opacity: 0.9; }
